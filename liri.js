@@ -212,7 +212,7 @@ function myTweets() {
     var params = { screen_name: 'nodejs' };
 
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
-    	
+
         if (!error) {
             console.log('These are my tweets: ' + tweets);
         }
@@ -232,9 +232,29 @@ function doAsSays() {
 
         var dataArray = data.split(",");
 
+        // in the random.txt file could be different type of search types 
+        //and search types, depending on the search type, do different functions
+        //defined outside this function
 
-        console.log("this is the random command: " + dataArray);
+        searchType = dataArray[0];
+        searchItem = dataArray[1];
 
+
+        // Possible type of commands:
+
+        switch (searchType) {
+            case 'movie-this':
+                movieThis(searchItem);
+                return;
+            case 'spotify-this-song':
+                spotifyThis(searchItem);
+                return;
+            case 'my-tweets':
+                myTweets();
+                return;
+            default:
+                console.log('Invalid command');
+        }
 
     })
 };
